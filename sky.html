@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >SkySureBooking - Book Your Dream Journey</title>
+    <link rel="icon" type="image/png" href="images/plane.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+<style>
+    :root {
+        --primary-blue: #00B4D8;
+        --dark-blue: #0077B6;
+        --light-blue: #90E0EF;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+    }
+    #home-content {
+        background-image: url('./images/16.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        padding: 80px 0;
+        color: white;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+
+    #home-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4); /* Dark overlay for better text visibility */
+        z-index: 0;
+    }
+
+    #home-content .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Adjust feature boxes for better visibility */
+    #home-content .feature-box {
+        background-color: rgba(255, 255, 255, 0.0);
+        color: #ffffff;
+    }
+
+    /* Make section title white to stand out */
+    #home-content .section-title {
+        color: white;
+    }
+    #home-content .section-title:after {
+        background-color: white;
+    }
+
+    /* Make lead text slightly larger */
+    #home-content .lead {
+        font-size: 1.25rem;
+        color: #f1f1f1;
+    }
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+    
+    .carousel-caption {
+        bottom: -100px; /* Start hidden below */
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        background: rgba(0, 0, 0, 0.7);
+        transition: all 0.5s ease;
+        opacity: 0;
+    }
+    
+    .carousel-item.active .carousel-caption {
+        bottom: 0;
+        opacity: 1;
+    }
+    
+    .carousel-caption h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        transform: translateY(20px);
+        transition: all 0.5s ease 0.2s;
+    }
+    
+    .carousel-caption p {
+        transform: translateY(20px);
+        transition: all 0.5s ease 0.3s;
+        opacity: 0;
+    }
+    
+    .carousel-item.active .carousel-caption h2,
+    .carousel-item.active .carousel-caption p {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    /* Adjust for mobile */
+    @media (max-width: 768px) {
+        .carousel-caption {
+            padding: 1rem;
+        }
+        .carousel-caption h2 {
+            font-size: 1.8rem;
+        }
+        .carousel-caption p {
+            font-size: 1rem;
+        }
+    }
+    
+
+    .navbar {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px 0;
+    }
+
+    .navbar-brand {
+        font-weight: 700;
+        color: var(--dark-blue) !important;
+        font-size: 1.8rem;
+    }
+
+    .nav-link {
+        color: #555 !important;
+        font-weight: 500;
+        margin: 0 10px;
+        transition: all 0.3s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        color: var(--primary-blue) !important;
+    }
+
+    /* ==========================
+       FULLSCREEN HERO SECTION
+    ===========================*/
+    .hero-section {
+        position: relative;
+        width: 100vw;
+        height: 100vh; /* Full screen height */
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+    }
+
+    #mainCarousel {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .carousel-inner {
+        width: 100%;
+        height: 100%;
+    }
+
+    .carousel-item {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .carousel-caption {
+        bottom: 20%;
+    }
+
+    .carousel-caption h2 {
+        font-size: 3rem;
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .carousel-caption p {
+        font-size: 1.2rem;
+        color: white;
+        font-weight: bold;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .section-title {
+        color: var(--dark-blue);
+        font-weight: 700;
+        margin-bottom: 30px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title:after {
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: 3px;
+        background-color: var(--primary-blue);
+        bottom: -10px;
+        left: 0;
+    }
+
+    .content-section {
+        padding: 80px 0;
+        display: none;
+    }
+
+    .content-section.active {
+        display: block;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-blue);
+        border-color: var(--primary-blue);
+        padding: 10px 25px;
+        font-weight: 500;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--dark-blue);
+        border-color: var(--dark-blue);
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .feature-box {
+        text-align: center;
+        padding: 30px;
+        border-radius: 10px;
+        transition: all 0.3s;
+        margin-bottom: 30px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .feature-box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 180, 216, 0.6);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: var(--primary-blue);
+        margin-bottom: 20px;
+    }
+
+    .contact-info {
+        margin-bottom: 30px;
+    }
+
+    .contact-info i {
+        color: var(--primary-blue);
+        margin-right: 10px;
+    }
+
+    footer {
+        background-color: var(--dark-blue);
+        color: white;
+        padding: 30px 0;
+    }
+
+    .search-box {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        margin-top: -50px;
+        position: relative;
+        z-index: 10;
+        #home-content {
+    background-image: url('./images/13.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+}
+
+/* Section title */
+.section-title {
+    color: var(--dark-blue);
+    font-weight: 700;
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 3px;
+    background-color: var(--primary-blue);
+    bottom: -10px;
+    left: 0;
+}
+    }
+</style>
+
+</head>
+<body>
+    <!-- Navigation -->
+   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#" data-section="home">
+            <i class="bi bi-airplane-fill me-2" style="color: var(--primary-blue);"></i>SkySureBooking
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-section="home">
+                        <i class="bi bi-house-door-fill me-1" style="color: var(--primary-blue);"></i>Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-section="about">
+                        <i class="bi bi-info-circle-fill me-1" style="color: var(--primary-blue);"></i>About Us
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-section="contact">
+                        <i class="bi bi-telephone-fill me-1" style="color: var(--primary-blue);"></i>Contact Us
+                    </a>
+                </li>
+                <li class="nav-item ms-lg-3">
+                    <a class="btn btn-primary rounded-pill" href="#">
+                        <i class="bi bi-ticket-perforated-fill me-1"></i>Book Now
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Section with Carousel -->
+    <section class="hero-section" id="home-section">
+    
+        <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"></button>
+                <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="3"></button>
+                <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="4"></button>
+            </div>
+           <div class="carousel-inner">
+    <div class="carousel-item active" style="background-image: url('./images/18a.webp');">
+        <div class="carousel-caption animate__animated animate__fadeInUp">
+            <h2>Domestic Flight Network</h2>
+            <p>Connecting all major Tanzanian cities - Dar, Zanzibar, Mwanza, Arusha, Kilimanjaro</p>
+        </div>
+    </div>
+    <div class="carousel-item" style="background-image: url('images/19a.jpg');">
+        <div class="carousel-caption animate__animated animate__fadeInUp">
+            <h2>Explore Tanzania's Wonders</h2>
+            <p>Book flights to Serengeti, Zanzibar, Kilimanjaro and beyond</p>
+        </div>
+    </div>
+    <div class="carousel-item" style="background-image: url('images/13a.jpeg');">
+        <div class="carousel-caption animate__animated animate__fadeInUp">
+            <h2>Exclusive Flight Deals</h2>
+            <p>Special fares on Precision Air, Air Tanzania, and partner airlines</p>
+        </div>
+    </div>
+    <div class="carousel-item" style="background-image: url('images/16a.jpg');">
+        <div class="carousel-caption animate__animated animate__fadeInUp">
+            <h2>Best Prices Guaranteed</h2>
+            <p>We'll match any lower price you find</p>
+        </div>
+    </div>
+    <div class="carousel-item" style="background-image: url('./images/1753396962937.jpg');">
+        <div class="carousel-caption animate__animated animate__fadeInUp">
+            <h2>Dedicated Support</h2>
+            <p>24/7 assistance in Swahili and English for all flight issues</p>
+        </div>
+    </div>
+</div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+            hi
+        </div>
+    </section>
+
+    
+   
+
+    <!-- Home Content -->
+ <section class="content-section active" id="home-content">
+   <div class="container">
+    <div class="text-center mb-5">
+        <h2 class="section-title">Why Choose SkySureBooking Tanzania?</h2>
+        <p class="lead">Your trusted partner for seamless travel across Tanzania and beyond</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="bi bi-globe-africa"></i>
+                </div>
+                <h3>Tanzania-Wide Coverage</h3>
+                <p>Book flights to all major Tanzanian destinations including Dar es Salaam, Zanzibar, Kilimanjaro, Mwanza, and Arusha with our local airline partners.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="bi bi-cash-coin"></i>
+                </div>
+                <h3>Best Local Prices</h3>
+                <p>We guarantee the most competitive fares in Tanzanian Shillings with no hidden fees, working directly with all domestic carriers.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="bi bi-headset"></i>
+                </div>
+                <h3>Swahili & English Support</h3>
+                <p>Our Dar es Salaam-based team provides 24/7 assistance in both Swahili and English for all your travel needs.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="bi bi-passport"></i>
+                </div>
+                <h3>Safari & Visa Assistance</h3>
+                <p>Special packages combining flights with safari tours and visa processing services for international visitors.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="bi bi-lightning-charge"></i>
+                </div>
+                <h3>Mobile Money Payments</h3>
+                <p>Instant booking confirmation with payment options including M-Pesa, Tigo Pesa, and Airtel Money for your convenience.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="bi bi-suitcase-lg"></i>
+                </div>
+                <h3>Baggage Solutions</h3>
+                <p>Special arrangements for extra baggage allowances on domestic flights to accommodate safari equipment.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+
+
+    <!-- About Us Content -->
+   <section class="content-section container" id="about-content">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2 class="section-title">About SkySureBooking Tanzania</h2>
+            <p class="lead">Your trusted domestic flight partner since 2015</p>
+            <p>SkySureBooking Tanzania was established with a simple mission: to make domestic air travel more accessible and affordable for all Tanzanians. From humble beginnings, we've grown to become a leading domestic flight booking platform serving travelers across the country.</p>
+            <p>Our team of aviation experts works tirelessly to secure the best fares on all Tanzanian routes. We take pride in our innovative booking system that makes finding and booking domestic flights simpler than ever before.</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="d-flex mb-3">
+                        <div class="me-3">
+                            <i class="bi bi-check-circle-fill" style="font-size: 1.5rem; color: #0033a0;"></i>
+                        </div>
+                        <div>
+                            <h5>Verified Reviews</h5>
+                            <p class="mb-0">4.7/5 from 35,000+ customers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex mb-3">
+                        <div class="me-3">
+                            <i class="bi bi-people-fill" style="font-size: 1.5rem; color: #007d00;"></i>
+                        </div>
+                        <div>
+                            <h5>Satisfied Travelers</h5>
+                            <p class="mb-0">500,000+ annual passengers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <img src="images/20.webp" alt="Our Tanzania Team" class="img-fluid rounded shadow" style="border: 2px solid #0033a0;">
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="mb-4" style="color: #0033a0;">Our Core Values</h3>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 h-100 shadow-sm" style="border-top: 4px solid #0033a0;">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="bi bi-heart-fill" style="font-size: 2rem; color: #ea6a20;"></i>
+                    </div>
+                    <h4 class="text-center">Customer First</h4>
+                    <p class="text-center">We prioritize our passengers' needs in everything we do, ensuring seamless domestic travel experiences.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 h-100 shadow-sm" style="border-top: 4px solid #007d00;">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="bi bi-lightbulb-fill" style="font-size: 2rem; color: #0033a0;"></i>
+                    </div>
+                    <h4 class="text-center">Local Innovation</h4>
+                    <p class="text-center">We develop solutions specifically for Tanzania's domestic aviation market and travelers.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 h-100 shadow-sm" style="border-top: 4px solid #ea6a20;">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="bi bi-shield-fill" style="font-size: 2rem; color: #007d00;"></i>
+                    </div>
+                    <h4 class="text-center">Integrity</h4>
+                    <p class="text-center">We maintain transparency in pricing and operations with all customers and airline partners.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Contact Us Content -->
+    <section class="content-section container" id="contact-content">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2 class="section-title">Contact Our Tanzania Team</h2>
+            <p class="lead">We're here to assist with your domestic flight needs</p>
+            <p>Need help with your booking or have questions about Tanzanian domestic flights? Our Dar es Salaam-based support team speaks both English and Swahili.</p>
+            
+            <div class="contact-info">
+                <p><i class="bi bi-geo-alt-fill"></i> <strong>Head Office:</strong> 2nd Floor,Michenzani Mall, Michenzani Street,Zanzibar, Tanzania</p>
+                <p><i class="bi bi-telephone-fill"></i> <strong>Phone:</strong> +255 22 123 4567</p>
+                <p><i class="bi bi-phone-fill"></i> <strong>Mobile:</strong> +255 712 345 678 (WhatsApp)</p>
+                <p><i class="bi bi-envelope-fill"></i> <strong>Email:</strong> info@skysurebooking.co.tz</p>
+                <p><i class="bi bi-clock-fill"></i> <strong>Hours:</strong> 6:00 AM - 10:00 PM EAT, 7 days a week</p>
+            </div>
+            
+            <div class="social-media mb-4">
+                <a href="#" class="text-decoration-none me-3"><i class="bi bi-facebook" style="font-size: 1.5rem; color: #0033a0;"></i></a>
+                <a href="#" class="text-decoration-none me-3"><i class="bi bi-twitter" style="font-size: 1.5rem; color: #1DA1F2;"></i></a>
+                <a href="#" class="text-decoration-none me-3"><i class="bi bi-instagram" style="font-size: 1.5rem; color: #E1306C;"></i></a>
+                <a href="#" class="text-decoration-none me-3"><i class="bi bi-whatsapp" style="font-size: 1.5rem; color: #25D366;"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="mb-4">Send Us Your Inquiry</h3>
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="name" required placeholder="Sheikh Thomas">
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" required placeholder="+255 7xx xxx xxx">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="your@email.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <select class="form-select" id="subject" required>
+                                <option value="">Select inquiry type</option>
+                                <option>Flight Booking Assistance</option>
+                                <option>Ticket Change Request</option>
+                                <option>Group Travel Inquiry</option>
+                                <option>Payment Issue</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea class="form-control" id="message" rows="4" required placeholder="Please include your PNR or booking reference if applicable"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+    <div class="col-12">
+        <div class="map-container" style="height: 400px; background-color: #eee; border-radius: 10px; overflow: hidden;">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d15866.047174794932!2d39.19937481302709!3d-6.196001093791706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1segaz%20zanzibar!5e0!3m2!1sen!2stz!4v1753398649120!5m2!1sen!2stz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3>SkySureBooking</h3>
+                    <p>Your trusted partner for all your air travel needs. We're committed to making your journey as smooth as possible.</p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Flights</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Destinations</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Deals</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Company</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Careers</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Press</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to get updates on special offers and travel tips.</p>
+                    <form class="d-flex">
+                        <input type="email" class="form-control me-2" placeholder="Your email">
+                        <button type="submit" class="btn btn-light">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 SkySureBooking. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-white text-decoration-none me-3">Terms of Service</a>
+                    <a href="#" class="text-white text-decoration-none">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom JS -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    // Initialize elements
+    const navLinks = document.querySelectorAll('.nav-link');
+    const contentSections = document.querySelectorAll('.content-section');
+    
+    // Initialize carousel with autoplay
+    const myCarousel = new bootstrap.Carousel(document.getElementById('mainCarousel'), {
+        interval: 5000,
+        wrap: true,
+        pause: false
+    });
+    
+    // Add animation when slide changes
+    document.getElementById('mainCarousel').addEventListener('slid.bs.carousel', function() {
+        const activeItem = this.querySelector('.carousel-item.active');
+        const caption = activeItem.querySelector('.carousel-caption');
+        
+        // Reset and trigger animation
+        caption.style.animation = 'none';
+        void caption.offsetWidth; // Trigger reflow
+        caption.style.animation = 'slideInFromLeft 1s ease-out forwards';
+        
+        // Animate children sequentially
+        const children = caption.children;
+        for (let i = 0; i < children.length; i++) {
+            children[i].style.animation = `textReveal 0.8s ease-out ${i * 0.2}s forwards`;
+        }
+    });
+    
+    // Navigation click handling
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Update active nav link
+            navLinks.forEach(navLink => navLink.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show corresponding section
+            const sectionId = this.getAttribute('data-section') + '-content';
+            contentSections.forEach(section => {
+                section.classList.remove('active');
+                if (section.id === sectionId) {
+                    section.classList.add('active');
+                }
+            });
+            
+            // Smooth scroll
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    });
+    
+    // Update active nav link on scroll
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY + 100;
+        
+        contentSections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                const sectionId = section.id.replace('-content', '');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    });
+    
+    // Trigger first animation
+    const firstCaption = document.querySelector('.carousel-item.active .carousel-caption');
+    firstCaption.style.animation = 'slideInFromLeft 1s ease-out forwards';
+    const firstChildren = firstCaption.children;
+    for (let i = 0; i < firstChildren.length; i++) {
+        firstChildren[i].style.animation = `textReveal 0.8s ease-out ${i * 0.2}s forwards`;
+    }
+});
+    </script>
+</body>
+</html>
